@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Генератор задач линейного программирования</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Генератор задач линейного программирования</h1>
+
+    <label for="problem-type">Выберите тип задачи:</label>
+    <select id="problem-type">
+        <option value="transportation">Транспортная задача</option>
+        <option value="classic">Классическая задача линейного программирования</option>
+    </select>
+
+    <button onclick="generateProblem()">Сгенерировать задачу</button>
+
+    <div id="problem-container" style="display: none;">
+        <h2>Условие задачи</h2>
+        <p id="problem-text"></p>
+
+        <h2>Данные задачи</h2>
+        <div id="data-container"></div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
