@@ -7,11 +7,9 @@ def generate_transportation_problem():
         warehouses = random.randint(3, 5)
         stores = random.randint(3, 5)
 
-    # Генерируем случайные запасы и спрос
     supply = [random.randint(20, 50) for _ in range(warehouses)]
     demand = [random.randint(20, 50) for _ in range(stores)]
 
-    # Приводим задачу к закрытому типу
     total_supply = sum(supply)
     total_demand = sum(demand)
 
@@ -20,7 +18,6 @@ def generate_transportation_problem():
     elif total_demand > total_supply:
         supply[-1] += (total_demand - total_supply)
 
-    # Генерируем таблицу стоимости перевозок
     cost_matrix = [[random.randint(1, 20) for _ in range(stores)] for _ in range(warehouses)]
 
     problem_text = (
@@ -29,13 +26,11 @@ def generate_transportation_problem():
         f"Необходимо определить оптимальный план перевозок с минимальными затратами."
     )
 
-    # Формируем таблицу в HTML
     table = "<table><tr><th>Склады ↓</th>" + "".join(f"<th>Магазин {i+1}</th>" for i in range(stores)) + "<th>Запасы</th></tr>"
     for i in range(warehouses):
         table += f"<tr><th>Склад {i+1}</th>" + "".join(f"<td>{cost_matrix[i][j]}</td>" for j in range(stores)) + f"<td>{supply[i]}</td></tr>"
     table += "<tr><th>Потребности →</th>" + "".join(f"<td>{demand[j]}</td>" for j in range(stores)) + "<td></td></tr></table>"
 
-    # Решаем методом северо-западного угла и считаем стоимость
     steps, total_cost, allocation = northwest_corner_method(supply[:], demand[:], cost_matrix)
     optimization_steps = optimize_plan(allocation, cost_matrix)
 
@@ -70,7 +65,6 @@ def northwest_corner_method(supply, demand, cost_matrix):
         else:
             break
 
-    # Генерация HTML-таблицы с распределениями
     table_html = "<br><br><strong>Таблица распределений:</strong><br><table border='1' cellpadding='5'><tr><th></th>"
     for j in range(len(demand)):
         table_html += f"<th>Магазин {j+1}</th>"
@@ -157,7 +151,6 @@ def find_cycle(allocation, start):
     rows, cols = len(allocation), len(allocation[0])
     basic_cells = [(i, j) for i in range(rows) for j in range(cols) if allocation[i][j] > 0 or (i, j) == start]
 
-    # Создаем словари для быстрого доступа по строкам и столбцам
     row_dict = defaultdict(list)
     col_dict = defaultdict(list)
     for i, j in basic_cells:

@@ -9,8 +9,7 @@ def generate_classic_lp_problem():
     constraints = [[random.randint(1, 10) for _ in range(num_vars)] for _ in range(num_constraints)]
     rhs = [random.randint(10, 50) for _ in range(num_constraints)]
 
-    # Выбор между максимизацией и минимизацией
-    objective_type = random.choice(["максимизировать", "минимизировать"])
+    objective_type = random.choice(["максимизировать", "минимизировать", "максимизировать"])
     problem_text = (
         f"Дана классическая задача линейного программирования. "
         f"Требуется {objective_type} функцию:"
@@ -41,7 +40,7 @@ def simplex_method_with_steps(c, A, b, objective_type):
     c = np.array(c, dtype=float)
 
     if objective_type == "максимизировать":
-        c = -c  # для симплекс-метода минимизации
+        c = -c
 
     num_constraints, num_vars = A.shape
 
